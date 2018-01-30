@@ -2,7 +2,8 @@
 Lean C# Algorithmic Trading Engine
 =========
 
-[![Join the chat at https://www.quantconnect.com/slack](https://cdn.quantconnect.com/lean/i/slack-sm.png)](https://www.quantconnect.com/slack) &nbsp;&nbsp;&nbsp;&nbsp; <img src="https://travis-ci.org/QuantConnect/Lean.svg?branch=master"> 
+[![Join the chat at https://www.quantconnect.com/slack](https://cdn.quantconnect.com/lean/i/slack-sm.png)](https://www.quantconnect.com/slack) &nbsp;&nbsp;&nbsp;&nbsp;
+[![Build Status](https://travis-ci.org/QuantConnect/Lean.svg?branch=feature%2Fremove-web-socket-4-net)](https://travis-ci.org/QuantConnect/Lean)
 
 [Lean Home - lean.quantconnect.com][1] | [Documentation][2] | [Download Zip][3]
 
@@ -64,9 +65,20 @@ mono QuantConnect.Lean.Launcher.exe
 
 - Install [Mono](http://www.mono-project.com/download/#download-lin):
 ```
-sudo apt-get update && rm -rf /var/lib/apt/lists/*
+sudo apt-get update && sudo rm -rf /var/lib/apt/lists/*
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
 echo "deb http://download.mono-project.com/repo/debian wheezy/snapshots/4.6.1.5 main" > sudo /etc/apt/sources.list.d/mono-xamarin.list
+```
+If you get this error on the last command:
+ 
+**Unable to locate package referenceassemblies-pcl**,
+ 
+run the following command (it works on current version of Ubuntu - 17.10):
+```
+echo "deb http://download.mono-project.com/repo/ubuntu xenial main" | sudo tee /etc/apt/sources.list.d/mono-official.list
+```
+
+```
 sudo apt-get update
 sudo apt-get install -y binutils mono-complete ca-certificates-mono referenceassemblies-pcl fsharp
 ```
@@ -100,9 +112,10 @@ If after all you still receive connection refuse error, try changing the `ib-por
 
 - Install [Visual Studio](https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx)
 - Open `QuantConnect.Lean.sln` in Visual Studio
+- Build the solution by clicking Build Menu -> Build Solution (this should trigger the Nuget package restore)
 - Press `F5` to run
 
-By default Visual Studio includes NuGet, if your version cannot find DLL references, install [Nuget](https://www.nuget.org/) and build again.
+Nuget packages not being restored is the most common build issue. By default Visual Studio includes NuGet, if your installation of Visual Studio (or your IDE) cannot find DLL references, install [Nuget](https://www.nuget.org/), run nuget on the solution and re-build the Solution again. 
 
 ### Python Support
 
@@ -133,18 +146,15 @@ devenv /log <path-to-log>
 
 Please submit bugs and feature requests as an issue to the [Lean Repository][5]. Before submitting an issue please read others to ensure it is not a duplicate.
 
-## Mailing List ##
+## Mailing List ## 
 
-The mailing list for the project can be found on [Google Groups][6]
+The mailing list for the project can be found on [Google Groups][6]. Please use this to request assistance with your installations and setup questions.
 
 ## Contributors and Pull Requests ##
 
 Contributions are warmly very welcomed but we ask you read the existing code to see how it is formatted, commented and ensure contributions match the existing style. All code submissions must include accompanying tests. Please see the [contributor guide lines][7].
 
 All accepted pull requests will get a 2mo free Prime subscription on QuantConnect. Once your pull-request has been merged write to us at support@quantconnect.com with a link to your PR to claim your free live trading. QC <3 Open Source.
-
-## Build Status ##
-<img src="https://travis-ci.org/QuantConnect/Lean.svg?branch=master">
 
 ## Acknowledgements ##
 
